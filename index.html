@@ -55,7 +55,7 @@
         <fieldset>
             <legend>Options</legend>
             <p>
-                Length: <input type="range">
+                Length: (<span id="label-length">8</span>)<input type="range" id="slider" value="8" min="4" max="20">
             </p>
             <p>
                 Numbers?: <input type="checkbox">
@@ -63,5 +63,17 @@
             </p>
         </fieldset>
     </div>
+  <script>
+    (function(){
+      'use strict'
+
+      var slider = document.getElementById('slider');
+      var lbl = document.getElementById('label-length');
+
+      slider.addEventListener('change', function(){
+         lbl.innerHTML = this.value;
+       });
+    })();
+  </script>
 </body>
 </html>
