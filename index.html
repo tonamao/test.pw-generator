@@ -50,7 +50,7 @@
 </head>
 <body>
     <div class="container">
-        <p><input type="text"></p>
+        <p><input type="text" id="password"></p>
         <p><div id="btn">Generate Password</div></p>
         <fieldset>
             <legend>Options</legend>
@@ -67,12 +67,30 @@
     (function(){
       'use strict'
 
+      var password = document.getElementById('password');
+      var btn = document.getElementById('btn');
       var slider = document.getElementById('slider');
       var lbl = document.getElementById('label-length');
 
+      /* get made password */
+      function getPassword(){
+    	  password.value = "PassWord!"
+      }
+
+      /* display value of length slider */
       slider.addEventListener('change', function(){
          lbl.innerHTML = this.value;
        });
+
+      /* display made pw when click 'Generate Password' btn */
+      btn.addEventListener('click', function(){
+    	  getPassword();
+      });
+
+      /* select all when click pw in input-area */
+      password.addEventListener('click', function(){
+    	  this.select();
+      });
     })();
   </script>
 </body>
