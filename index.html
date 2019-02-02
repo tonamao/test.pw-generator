@@ -9,11 +9,11 @@
 				text-align: center;
 			}
 			.container {
-				width: 400px;
-				margin: 20px auto;
+				width: 470px;
+				margin: 40px auto;
 			}
 			input[type="text"] {
-				width: 380px;
+				width: 450px;
 				padding: 7px;
 				border-radius: 3px;
 				font-size: 20px;
@@ -32,23 +32,24 @@
 			#btn:hover{
 				oppacity: 0.8;
 			}
-			fieldset{
-				margin-top: 40px;
-				border: 2px dashed #aaa;
-				border-radius: 5px;
-				text-align: center;
-			}
 			legend{
 				font-weight: bold;
 				text-align: left;
 			}
+			fieldset{
+				border: 2px dashed #aaa;
+				border-radius: 5px;
+				text-align: center;
+			}
 			fieldset p{
 				text-align: center;
 			}
+			span.options{
+				padding: 20px;
+			}
 			p.comment{
-				margin-left: 80px;
-				text-align: left;
-				font-size: 12px;
+				text-align: center;
+				font-size: 14px;
 			}
 
 		</style>
@@ -60,13 +61,14 @@
 			<p><div id="btn">Generate Password</div></p>
 			<fieldset>
 				<legend>Options</legend>
-				<p>Length: (<span id="label-length">8</span>)<input type="range" id="slider" value="8" min="4" max="32"></p>
 				<p>
-					Numbers?: <input type="checkbox" id="number">
-					Symbols?: <input type="checkbox" id="symbol">
+					<span class="options">Length: (<span id="label-length">8</span>)</span><input type="range" id="slider" value="8" min="4" max="32">
 				</p>
-				<p class="comment">※ Symbols...</p>
-				<p class="comment">!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</p>
+				<p>
+					<span class="options">Numbers?: <input type="checkbox" id="number"></span>
+					<span class="options">Symbols?: <input type="checkbox" id="symbol"></span>
+				</p>
+				<p class="comment">※ Symbols... &nbsp;!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</p>
 			</fieldset>
 		</div>
 	 	<script>
@@ -79,26 +81,18 @@
 				var lbl = document.getElementById('label-length');
 				var number = document.getElementById('number');
 				var symbol = document.getElementById('symbol');
-				var pwElement = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-				/* add numbers */
-				function addNumber(){
-					var num = '0123456789';
-					pwElement += num;
-				}
-
-				/* add symbols */
-				function addSymbol(){
-					var smbl = '!"#$%&' + "'()*+,-./:;<=>?@[\]^_`{|}~";
-					pwElement += smbl;
-				}
+				//pwd element
+				var pwdElement = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				var num = '0123456789';
+				var smbl = '!"#$%&' + "'()*+,-./:;<=>?@[\]^_`{|}~";
 
 				/* get made password */
-				function getPassword(){
+				function getPassword(element){
 					var len = slider.value;
 					var pwd = '';
 					for(var i = 0; i < len; i++){
-						pwd += pwElement[Math.floor(Math.random() * pwElement.length)];
+						pwd += element[Math.floor(Math.random() * element.length)];
 					}
 					password.value = pwd
 				}
@@ -110,14 +104,16 @@
 
 				/* display made pw when click 'Generate Password' btn */
 				btn.addEventListener('click', function(){
+					var element = pwdElement;
+
 					// check checkbox
 					if(number.checked == true){
-						addNumber();
+						element += num;
 					}
 					if(symbol.checked == true){
-						addSymbol();
+						element += smbl;
 					}
-					getPassword();
+					getPassword(element);
 				});
 
 				/* select all when click pw in input-area */
